@@ -26,6 +26,8 @@ jobs:
         IFS=',' read -r -a image_array <<< "$images"
         for image in "${image_array[@]}"; do
           docker pull "${image}" --platform "linux/amd64"
+          docker tag "${image}" hub.lml.6a105.cf:2053/${image}
+          docker push hub.lml.6a105.cf:2053/${image}
           docker save "${image}" -o "${image//\//_}-amd64.tar"
         done
 
